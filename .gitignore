@@ -28,15 +28,15 @@ backend/.env
 /storage/framework/views
 /storage/framework/testing
 /public/storage
-/public/hot
+backend/public/hot
 bootstrap/cache/*.php
-/vendor
+vendor/
 Homestead.json
 Homestead.yaml
 
 # Node / Vite / Frontend
-/node_modules
-/public/build
+node_modules/
+public/build/
 /public/mix-manifest.json
 /public/assets
 resources/js/**/*.js.map
