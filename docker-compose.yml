@@ -1,0 +1,65 @@
+services:
+  app:
+    build:
+      context: ./docker/php
+    image: champions_app_image
+    container_name: champions_app_container
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - champions
+    depends_on:
+      - mysql
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: champions_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - champions
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    container_name: champions_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: insider_champions_league
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - champions
+
+  node:
+    image: node:20
+    container_name: champions_node
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+      - ./docker/node:/var/www/docker/node
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+    command: sh /var/www/docker/node/entrypoint.sh
+    ports:
+      - "5173:5173"
+    networks:
+      - champions
+
+volumes:
+  mysql_data:
+
+networks:
+  champions:
+    driver: bridge
