@@ -1,18 +1,25 @@
 <?php
 
+use Dotenv\Dotenv;
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
+$basePath = dirname(__DIR__);
+
+$app = Application::configure(basePath: $basePath)
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: $basePath . '/routes/web.php',
+        commands: $basePath . '/routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(function ($middleware) {
         //
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function ($exceptions) {
         //
-    })->create();
+    });
+
+if (($_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? null) === 'testing') {
+    Dotenv::createImmutable($basePath, '.env.testing')->load();
+}
+
+return $app->create();

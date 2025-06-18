@@ -34,11 +34,12 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: insider_champions_league
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD:
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - champions
 

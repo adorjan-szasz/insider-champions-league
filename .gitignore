@@ -15,7 +15,7 @@ Thumbs.db
 
 # Laravel
 backend/.env
-.env.*
+backend/.env.testing
 .env.backup
 .env.production
 .phpunit.result.cache
@@ -67,3 +67,6 @@ auth.json
 *.sql
 *.sqlite
 *.sqlite3
+
+# Swagger
+backend/storage/api-docs/
