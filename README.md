@@ -81,8 +81,10 @@ docker exec -it champions_node php artisan test --testsuite=Feature
 
 ### API Docs
 
-Generate:
+#### Generate:
+```bash
 docker exec -it champions_app_container composer swagger
+```
 
-Swagger UI:
+#### Swagger UI:
 http://localhost:8080/api/documentation
