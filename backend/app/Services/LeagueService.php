@@ -49,6 +49,7 @@ class LeagueService extends BaseService
             $matches = $team->homeMatches->merge($team->awayMatches);
 
             $stats = [
+                'leagueId' => $leagueId,
                 'id' => $team->id,
                 'team' => $team->name,
                 'played' => 0,

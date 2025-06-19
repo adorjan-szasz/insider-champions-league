@@ -53,9 +53,32 @@ cp .env.example .env
 docker exec -it champions_app_container php artisan key:generate
 ```
 
+### .env example
+
+```
+APP_NAME=InsiderChampionsLeague
+APP_ENV=local
+APP_KEY=generated-with-php-artisan-key:generate
+APP_DEBUG=true
+APP_URL=http://localhost:8080
+VITE_DEV_SERVER_URL=http://localhost:5173
+VITE_API_BASE_URL=http://localhost:8080/api
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=insider_champions_league
+DB_USERNAME=your-db-user
+DB_PASSWORD=your-db-password
+
+SESSION_DRIVER=file
+```
+
 ### Configure DB
 ```bash
 docker exec -it champions_app_container php artisan migrate --seed
+
+docker exec -it champions_app_container php artisan db:seed --class=InsiderChampionsLeagueMasterSeeder
 ```
 
 ### Install JS dependencies (also, this is done automatically when building Docker)
