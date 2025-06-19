@@ -1,7 +1,5 @@
 <template>
   <div class="standings-card p-4 space-y-6">
-      <pre>{{filteredStandings.some(t => t.champion_chance != null)}}</pre>
-      <pre>{{filteredStandings}}</pre>
     <div v-if="filteredStandings.length > 0">
       <h2 class="text-xl font-semibold mb-4">Standings</h2>
       <table class="w-full text-sm border-collapse">
@@ -76,7 +74,6 @@ export default {
   computed: {
     ...mapState(['standings']),
     filteredStandings() {
-        console.log(this.standings);
       const leagueIdNum = Number(this.leagueId);
       return this.standings.filter(s => s.leagueId === leagueIdNum);
     },

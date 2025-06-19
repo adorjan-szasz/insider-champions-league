@@ -1,31 +1,31 @@
 <template>
     <div class="league-table">
         <h2 class="text-xl font-bold mb-4">League Table</h2>
-        <pre>{{sortedStandings}}</pre>
+
         <table class="table-auto w-full border">
             <thead>
-            <tr class="bg-gray-100">
-                <th class="px-4 py-2 text-left">#</th>
-                <th class="px-4 py-2 text-left">Team</th>
-                <th class="px-4 py-2 text-center">W</th>
-                <th class="px-4 py-2 text-center">D</th>
-                <th class="px-4 py-2 text-center">L</th>
-                <th class="px-4 py-2 text-center">GF</th>
-                <th class="px-4 py-2 text-center">GA</th>
-                <th class="px-4 py-2 text-center">Pts</th>
-            </tr>
+                <tr class="bg-gray-100">
+                    <th class="px-4 py-2 text-left">#</th>
+                    <th class="px-4 py-2 text-left">Team</th>
+                    <th class="px-4 py-2 text-center">W</th>
+                    <th class="px-4 py-2 text-center">D</th>
+                    <th class="px-4 py-2 text-center">L</th>
+                    <th class="px-4 py-2 text-center">GF</th>
+                    <th class="px-4 py-2 text-center">GA</th>
+                    <th class="px-4 py-2 text-center">Pts</th>
+                </tr>
             </thead>
             <tbody>
-            <tr v-for="(team, index) in sortedStandings" :key="team.id" class="border-t">
-                <td class="px-4 py-2">{{ index + 1 }}</td>
-                <td class="px-4 py-2">{{ team.name }}</td>
-                <td class="px-4 py-2 text-center">{{ team.wins }}</td>
-                <td class="px-4 py-2 text-center">{{ team.draws }}</td>
-                <td class="px-4 py-2 text-center">{{ team.losses }}</td>
-                <td class="px-4 py-2 text-center">{{ team.goalsFor }}</td>
-                <td class="px-4 py-2 text-center">{{ team.goalsAgainst }}</td>
-                <td class="px-4 py-2 text-center">{{ team.points }}</td>
-            </tr>
+                <tr v-for="(team, index) in sortedStandings" :key="team.id" class="border-t">
+                    <td class="px-4 py-2">{{ index + 1 }}</td>
+                    <td class="px-4 py-2">{{ team.name }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.wins }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.draws }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.losses }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.goalsFor }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.goalsAgainst }}</td>
+                    <td class="px-4 py-2 text-center">{{ team.points }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
