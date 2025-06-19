@@ -19,13 +19,16 @@ class TeamServiceTest extends TestCase
 
         $team = $service->store([
             'name' => 'Team A',
-            'strength' => 50,
+            'strength' => 78,
             'league_id' => $league->id,
         ]);
 
         $this->assertInstanceOf(Team::class, $team);
+
         $this->assertEquals('Team A', $team->name);
-        $this->assertEquals(50, $team->strength);
+
+        $this->assertEquals(78, $team->strength);
+
         $this->assertEquals($league->id, $team->league_id);
     }
 }

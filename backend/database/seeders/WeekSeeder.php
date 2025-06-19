@@ -18,7 +18,7 @@ class WeekSeeder extends Seeder
         $leagueId = $this->leagueId ?? League::first()->id;
         $league = League::find($leagueId);
 
-        foreach (range(1, 4) as $number) {
+        foreach (range(1, 6) as $number) {
             Week::factory()->forLeague($league)->create(['week_number' => $number]);
         }
     }

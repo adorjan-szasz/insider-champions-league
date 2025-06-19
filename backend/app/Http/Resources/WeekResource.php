@@ -16,7 +16,7 @@ class WeekResource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'number'    => $this->number,
+            'weekNumber'    => $this->number,
             'league'    => new LeagueResource($this->whenLoaded('league')),
             'matches'   => SoccerResource::collection($this->whenLoaded('matches')),
         ];

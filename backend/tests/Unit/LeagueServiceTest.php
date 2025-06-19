@@ -14,28 +14,24 @@ class LeagueServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_generate_schedule_creates_matches()
+    public function test_generate_schedule_creates_matches_sets_scores()
     {
         $league = League::factory()->create();
         Team::factory()->count(4)->forLeague($league)->create();
 
         $service = resolve(LeagueService::class);
-        $service->generateSchedule($league);
+        $service->simulateLeague($league->id);
 
-        $this->assertEquals(8, Soccer::where('league_id', $league->id)->count());
+        $matches = Soccer::whereHas('week', function ($query) use ($league) {
+            $query->where('league_id', $league->id);
+        });
+
+        $this->assertInstanceOf(League::class, $league);
+
+        $this->assertEquals(12, $matches->count());
+
         $this->assertGreaterThan(0, Week::where('league_id', $league->id)->count());
-    }
 
-    public function test_simulate_matches_sets_scores()
-    {
-        $league = League::factory()->create();
-        Team::factory()->count(4)->forLeague($league)->create();
-
-        $service = resolve(LeagueService::class);
-        $service->generateSchedule($league);
-        $service->simulate($league);
-
-        $matches = Soccer::where('league_id', $league->id)->get();
-        $this->assertTrue($matches->every(fn ($m) => $m->home_score !== null && $m->away_score !== null));
+        $this->assertTrue($matches->get()->every(fn ($m) => $m->home_goals !== null && $m->away_goals !== null));
     }
 }

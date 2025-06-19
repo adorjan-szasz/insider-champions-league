@@ -32,8 +32,8 @@ class SoccerRepository extends BaseRepository
         $match = $this->model->findOrFail($matchId);
 
         $match->update([
-            'home_score' => $homeScore,
-            'away_score' => $awayScore,
+            'home_goals' => $homeScore,
+            'away_goals' => $awayScore,
         ]);
 
         return $match;

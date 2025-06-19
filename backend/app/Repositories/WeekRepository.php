@@ -27,12 +27,12 @@ class WeekRepository extends BaseRepository
         return $this->model->create($data);
     }
 
-    public function getByLeagueWithMatches(int $leagueId): Week
+    public function getByLeagueWithMatches(int $leagueId): Collection
     {
         return $this->model
             ->with('matches.homeTeam', 'matches.awayTeam')
             ->where('league_id', $leagueId)
-            ->orderBy('number')
+            ->orderBy('week_number')
             ->get();
     }
 }

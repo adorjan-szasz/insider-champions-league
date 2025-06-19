@@ -26,7 +26,7 @@ class LeagueFeatureTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-            ->assertJsonStructure(['id', 'name']);
+            ->assertJsonStructure(['data' => ['id', 'name']]);
 
         $this->assertDatabaseHas('leagues', ['name' => 'Test League']);
     }
@@ -47,14 +47,10 @@ class LeagueFeatureTest extends TestCase
         $league = League::factory()->create();
         Team::factory()->count(4)->forLeague($league)->create();
 
-        foreach (range(1, 4) as $number) {
-            Week::factory()->forLeague($league)->create(['week_number' => $number]);
-        }
-
         $response = $this->postJson("/api/leagues/{$league->id}/simulate");
 
         $response->assertStatus(200);
-        $this->assertDatabaseCount('matches', 12);
+        $this->assertDatabaseCount('soccers', 12);
         $this->assertDatabaseHas('weeks', ['league_id' => $league->id]);
     }
 
@@ -63,7 +59,7 @@ class LeagueFeatureTest extends TestCase
         $league = League::factory()->create();
         Team::factory()->count(4)->forLeague($league)->create();
 
-        foreach (range(1, 4) as $number) {
+        foreach (range(1, 6) as $number) {
             Week::factory()->forLeague($league)->create(['week_number' => $number]);
         }
 
@@ -73,7 +69,22 @@ class LeagueFeatureTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                '*' => ['team', 'played', 'won', 'drawn', 'lost', 'gf', 'ga', 'gd', 'points'],
-            ]);
+                'standings' => [
+                    '*' => [
+                        'id',
+                        'team',
+                        'played',
+                        'won',
+                        'drawn',
+                        'lost',
+                        'goals_for',
+                        'goals_against',
+                        'goal_difference',
+                        'points',
+                        'champion_chance',
+                    ],
+                ],
+            ]
+        );
     }
 }

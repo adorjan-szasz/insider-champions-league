@@ -3,12 +3,11 @@
     <head>
         <meta charset="UTF-8">
 
-        <title>Champions League</title>
+        <title>Champions League Simulator</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-
-    <body>
+    <body class="bg-gray-100 font-sans">
         <div id="app"></div>
     </body>
 </html>

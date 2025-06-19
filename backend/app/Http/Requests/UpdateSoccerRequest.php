@@ -26,8 +26,8 @@ class UpdateSoccerRequest extends FormRequest
             'home_team_id' => 'sometimes|exists:teams,id|different:away_team_id',
             'away_team_id' => 'sometimes|exists:teams,id',
             'week_id' => 'sometimes|exists:weeks,id',
-            'home_score' => 'nullable|integer|min:0',
-            'away_score' => 'nullable|integer|min:0',
+            'home_goals' => 'nullable|integer|min:0',
+            'away_goals' => 'nullable|integer|min:0',
         ];
     }
 }

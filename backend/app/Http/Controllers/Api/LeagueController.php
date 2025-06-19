@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateLeagueRequest;
 use App\Http\Resources\LeagueResource;
 use App\Models\League;
 use App\Services\LeagueService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class LeagueController extends Controller
@@ -87,7 +88,7 @@ class LeagueController extends Controller
      *     )
      * )
      */
-    public function show(League $league)
+    public function show(League $league): JsonResponse
     {
         return response()->json($this->service->getLeagueTable($league->id));
     }
@@ -167,8 +168,8 @@ class LeagueController extends Controller
      *     )
      * )
      */
-    public function simulate($leagueId)
+    public function simulate(League $league): JsonResponse
     {
-        return response()->json($this->service->simulateLeague($leagueId));
+        return response()->json($this->service->simulateLeague($league->id));
     }
 }
